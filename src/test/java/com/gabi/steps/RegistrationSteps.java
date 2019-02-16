@@ -2,10 +2,7 @@ package com.gabi.steps;
 
 import com.gabi.pages.RegistrationPageObject;
 import cucumber.api.DataTable;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.Steps;
 
 import java.util.List;
@@ -16,59 +13,32 @@ public class RegistrationSteps {
     @Steps
     private RegistrationPageObject registrationPageObject;
 
-    @Given("^User entered application URL$")
-    public void userEnteredApplicationURL() {
-        registrationPageObject.openAnotherPagePage();
+    @Step("He selected his current insurer from the available list")
+    public void selectInsurerFromTheList(String company) {
+        registrationPageObject.heOpenedAvailableMenu();
+        registrationPageObject.heSelectedCurrentInsurerCompany(company);
+        registrationPageObject.heClickedOnNextStepButton();
     }
 
-    @And("^He selected his current insurer as Progressive$")
-    public void heSelectedHisCurrentInsurerAsProgressive() {
+    @Step
+    public void heReadTermsOfServiceAndPrivacyPolicies() {
+        registrationPageObject.heReadTermsOfService();
+        registrationPageObject.heReadPrivacyPolicies();
     }
 
-    @And("^He \"read\" Terms of Service and Privacy Policy$")
-    public void heTermsOfServiceAndPrivacyPolicy() {
-    }
-
-    @When("^He finishes inputting his personal information$")
-    public void heFinishesInputtingHisPersonalInformation(DataTable dataTable) {
+    @Step
+    public void heStartsInputtingRestOfTheData(DataTable dataTable) {
         List<Map<String, String>> dt = dataTable.asMaps(String.class, String.class);
+        registrationPageObject.heInputsHisNameAndLastName(dt.get(0).get("Name"), dt.get(0).get("Last Name"));
+        registrationPageObject.heInputsHisBirthdate(dt.get(0).get("Birthday"));
+        registrationPageObject.heInputsHisAddressAndApartmentNumber(dt.get(0).get("Home Address"), dt.get(0).get("Apartment Number"));
+        registrationPageObject.heInputsHisMailAddress(dt.get(0).get("Email Address"));
+        registrationPageObject.heInputsHisPhoneNumber(dt.get(0).get("Phone Number"));
     }
 
-    @Then("^He is asked to provide verification code$")
-    public void heIsAskedToProvideVerificationCode() {
-
-    }
-
-    @And("^He selected that he does not have current auto insurance policy$")
-    public void heSelectedThatHeDoesNotHaveCurrentAutoInsurancePolicy() {
-    }
-
-    @When("^He inputs his Name and Last Name with spaces$")
-    public void heInputsHisNameAndLastNameWithSpaces(DataTable dataTable) {
-        List<Map<String, String>> dt = dataTable.asMaps(String.class, String.class);
-    }
-
-    @Then("^His Name should not contain any spaces, but his last name should remain the same$")
-    public void hisNameShouldNotContainAnySpacesButHisLastNameShouldRemainTheSame() {
-
-    }
-
-    @And("^He inputted Prog in the Insurer field and then he selected Progressive item$")
-    public void heInputtedProgInTheInsurerFieldAndThenHeSelectedProgressiveItem() {
-
-    }
-
-    @And("^He inputted his Name, Last Name and Birthday$")
-    public void heInputtedHisNameLastNameAndBirthday(DataTable dataTable) {
-        List<Map<String, String>> dt = dataTable.asMaps(String.class, String.class);
-    }
-
-    @When("^He inputs Drive Thru in the Address field$")
-    public void heInputsDriveThruInTheAddressField() {
-
-    }
-
-    @Then("^He selects Drive-thru, Madison, WI 53718 item$")
-    public void heSelectsDriveThruMadisonWIItem() {
+    @Step
+    public void heVerifiesThatGabiShouldSendTheCode() {
+        registrationPageObject.checkIfAccountAlreadyExist();
+        registrationPageObject.assertThatHesOnLastStep();
     }
 }

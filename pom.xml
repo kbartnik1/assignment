@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <env>staging</env>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <serenity.version>2.0.20</serenity.version>
         <serenity.maven.version>2.0.20</serenity.maven.version>
@@ -117,6 +118,9 @@
                         <include>**/Test*.java</include>
                         <include>**/*Runner*.java</include>
                     </includes>
+                    <systemPropertyVariables>
+                        <env>${env}</env>
+                    </systemPropertyVariables>
                 </configuration>
                 <executions>
                     <execution>
