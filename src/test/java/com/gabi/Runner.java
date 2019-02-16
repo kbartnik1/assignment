@@ -7,8 +7,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features",
         monochrome = true,
-        plugin = "pretty",
-        tags = "@d"
+        plugin = "pretty"
 )
 @RunWith(CucumberWithSerenity.class)
 public class Runner {

@@ -9,9 +9,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
-import java.util.List;
-import java.util.Map;
-
 public class RegistrationCuke {
 
     @Steps
@@ -45,34 +42,21 @@ public class RegistrationCuke {
 
     @And("^He selected that he does not have current auto insurance policy$")
     public void heSelectedThatHeDoesNotHaveCurrentAutoInsurancePolicy() {
+        registrationSteps.heSelectedThatHeHasNoInsurance();
     }
 
     @When("^He inputs his Name and Last Name with spaces$")
     public void heInputsHisNameAndLastNameWithSpaces(DataTable dataTable) {
-        Map<String, String> dt = dataTable.asMap(String.class, String.class);
+        registrationSteps.heInputsHisNameAndLastNameWithSpaces(dataTable);
     }
 
     @Then("^His Name should not contain any spaces, but his last name should remain the same$")
     public void hisNameShouldNotContainAnySpacesButHisLastNameShouldRemainTheSame() {
-
+        registrationSteps.heVerifiedHisNameAndLastName();
     }
 
-    @And("^He inputted Prog in the Insurer field and then he selected Progressive item$")
-    public void heInputtedProgInTheInsurerFieldAndThenHeSelectedProgressiveItem() {
-
-    }
-
-    @And("^He inputted his Name, Last Name and Birthday$")
-    public void heInputtedHisNameLastNameAndBirthday(DataTable dataTable) {
-        List<Map<String, String>> dt = dataTable.asMaps(String.class, String.class);
-    }
-
-    @When("^He inputs Drive Thru in the Address field$")
-    public void heInputsDriveThruInTheAddressField() {
-
-    }
-
-    @Then("^He selects Drive-thru, Madison, WI 53718 item$")
-    public void heSelectsDriveThruMadisonWIItem() {
+    @When("^He finishes inputting his personal information without name and last name$")
+    public void heFinishesInputtingHisPersonalInformationWithoutNameAndLastName(DataTable dataTable) {
+        registrationSteps.heInputtedRestOfTheDataWithoutNameAndLastName(dataTable);
     }
 }

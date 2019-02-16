@@ -20,13 +20,11 @@ public class RegistrationSteps {
         registrationPageObject.heClickedOnNextStepButton();
     }
 
-    @Step
     public void heReadTermsOfServiceAndPrivacyPolicies() {
         registrationPageObject.heReadTermsOfService();
         registrationPageObject.heReadPrivacyPolicies();
     }
 
-    @Step
     public void heStartsInputtingRestOfTheData(DataTable dataTable) {
         List<Map<String, String>> dt = dataTable.asMaps(String.class, String.class);
         registrationPageObject.heInputsHisNameAndLastName(dt.get(0).get("Name"), dt.get(0).get("Last Name"));
@@ -40,5 +38,27 @@ public class RegistrationSteps {
     public void heVerifiesThatGabiShouldSendTheCode() {
         registrationPageObject.checkIfAccountAlreadyExist();
         registrationPageObject.assertThatHesOnLastStep();
+    }
+
+    public void heSelectedThatHeHasNoInsurance() {
+        registrationPageObject.heSelectedThatHeHasNoInsurance();
+    }
+
+    public void heInputsHisNameAndLastNameWithSpaces(DataTable dataTable) {
+        List<Map<String, String>> dt = dataTable.asMaps(String.class, String.class);
+        registrationPageObject.heInputsHisNameAndLastName(dt.get(0).get("Name"), dt.get(0).get("Last Name"));
+    }
+
+    public void heVerifiedHisNameAndLastName() {
+        registrationPageObject.validateNameAndLastNameInput();
+    }
+
+    public void heInputtedRestOfTheDataWithoutNameAndLastName(DataTable dataTable){
+        List<Map<String, String>> dt = dataTable.asMaps(String.class, String.class);
+        registrationPageObject.heInputsHisBirthdate(dt.get(0).get("Birthday"));
+        registrationPageObject.heInputsHisAddressAndApartmentNumber(dt.get(0).get("Home Address"), dt.get(0).get("Apartment Number"));
+        registrationPageObject.heInputsHisMailAddress(dt.get(0).get("Email Address"));
+        registrationPageObject.heInputsHisPhoneNumber(dt.get(0).get("Phone Number"));
+
     }
 }

@@ -1,5 +1,6 @@
 package com.gabi.pages;
 
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -91,10 +92,11 @@ public class RegistrationPageObject extends PageObject {
 
     @Step
     public void heSelectedCurrentInsurerCompany(String company) {
-        insurerSelector(company).waitUntilVisible().click();
+        insurerSelector(company).waitUntilPresent().click();
     }
 
     public void heClickedOnNextStepButton() {
+        Serenity.takeScreenshot();
         nextStepButton.waitUntilClickable().click();
     }
 
@@ -103,6 +105,7 @@ public class RegistrationPageObject extends PageObject {
         termsOfServiceButton.waitUntilPresent().click(); //bug
         termsOfServiceButton.waitUntilPresent().click();
         scrollRegulationWithJS();
+        Serenity.takeScreenshot();
         closeButton.click();
     }
 
@@ -110,6 +113,7 @@ public class RegistrationPageObject extends PageObject {
     public void heReadPrivacyPolicies() {
         privacyPolicyButton.waitUntilPresent().click();
         scrollRegulationWithJS();
+        Serenity.takeScreenshot();
         closeButton.click();
     }
 
@@ -117,6 +121,7 @@ public class RegistrationPageObject extends PageObject {
     public void heInputsHisNameAndLastName(String name, String last_name) {
         firstNameInputField.sendKeys(name);
         lastNameInputField.sendKeys(last_name);
+        Serenity.takeScreenshot();
         nextStepButton.click();
     }
 
@@ -126,6 +131,7 @@ public class RegistrationPageObject extends PageObject {
         monthInput.sendKeys(splittedBDay[0]);
         dayInput.sendKeys(splittedBDay[1]);
         yearInput.sendKeys(splittedBDay[2]);
+        Serenity.takeScreenshot();
         nextStepButton.click();
     }
 
@@ -136,28 +142,43 @@ public class RegistrationPageObject extends PageObject {
         Actions actions = new Actions(getDriver());
         actions.sendKeys(Keys.DOWN).sendKeys(Keys.ENTER).build().perform();
         apartmentNumber.sendKeys(apartment_number);
+        Serenity.takeScreenshot();
         nextStepButton.click();
     }
 
     @Step
     public void heInputsHisMailAddress(String email_address) {
         emailInput.sendKeys(email_address);
+        Serenity.takeScreenshot();
         nextStepButton.click();
     }
 
     @Step
     public void heInputsHisPhoneNumber(String phone_number) {
         phoneInput.sendKeys(phone_number);
+        Serenity.takeScreenshot();
         nextStepButton.click();
     }
 
     public void checkIfAccountAlreadyExist() {
-        if (accountMightAlreadyExist.isPresent())
+        if (accountMightAlreadyExist.isPresent()) {
+            Serenity.takeScreenshot();
             nopeButton.waitUntilPresent().click();
+        }
     }
 
     public void assertThatHesOnLastStep() {
         assertThat(lastStepBanner.isPresent()).isTrue();
+        Serenity.takeScreenshot();
+    }
+
+    public void heSelectedThatHeHasNoInsurance() {
+        noInsuranceButton.waitUntilPresent().click();
+    }
+
+    public void validateNameAndLastNameInput() {
+        assertThat(firstNameInputField.getValue().replaceAll("\\s+", "")).isEqualToIgnoringCase("kevin");
+        assertThat(lastNameInputField.getValue()).isEqualToIgnoringCase("sp ej si");
     }
 
 
@@ -166,9 +187,9 @@ public class RegistrationPageObject extends PageObject {
         try {
             JavascriptExecutor js = (JavascriptExecutor) getDriver();
             Long objectsScrollingHeight = (Long) js.executeScript("return arguments[0].scrollHeight;", visibleRegulationWindow);
-            for (int i = 0; i < 10; i++) {
-                js.executeScript("arguments[0].scrollBy(0," + objectsScrollingHeight / 10 + ")", visibleRegulationWindow);
-                Thread.sleep(200);
+            for (int i = 0; i < 100; i++) {
+                js.executeScript("arguments[0].scrollBy(0," + objectsScrollingHeight / 100 + ")", visibleRegulationWindow);
+                Thread.sleep(10);
             }
         } catch (Exception e) {
             e.printStackTrace();
