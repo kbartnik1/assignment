@@ -23,3 +23,7 @@ Note: this is just a PoC, thus I did not integrate it with vcs.
 
 ## Reporting
 Every test execution leaves a nice looking report that can be viewed after opening /target/site/serenity/index.html file.
+
+### Found bugs:
+- On second page, when user haven't typed the user name yet, if he wants to check the Terms of Service or Privacy Policy, he has to click twice for the first time.  
+- Pasting the same address that would also be retrieved from google does not allow the user to proceed on step 4. (This might be the intended behaviour, though not user-friendly)
