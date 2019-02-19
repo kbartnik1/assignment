@@ -7,10 +7,10 @@ This repository contains java based application that executes e2e tests on Gabi'
 ## Running the app
 Before starting anything - make sure that you have cloned or downloaded the repository to your local machine and you are checked out in your favourite CLI on the project's root.
 ### In headless mode
-Make note, that you won't be able to see what is performed, as everything is going to be executed "under-cover"
+Make note, that you won't be able to see what is performed, as everything is going to be executed "under-cover"  
 `mvn clean verify`
 ### Visible mode
-@Windows
+@Windows  
 `mvn clean verify -D"chrome.switches"=`
 ### Using Docker + Jenkins
 ##### Pre-requisites
